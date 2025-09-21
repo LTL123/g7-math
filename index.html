@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Grade 7 Math Learning Journey</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 登录界面 -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-content">
+            <h2>登录系统</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">用户名:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">登录</button>
+                <div id="loginError" class="error-message" style="display: none;">用户名或密码错误</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 主要内容区域 -->
+    <div id="mainContent" style="display: none;">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>G7 数学之旅 Math learning Journey </h1>
+                    <p>Explore your curriculum by units and lessons</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span>欢迎，<span id="currentUser"></span></span>
+                        <button id="logoutBtn" class="logout-btn">退出登录</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main id="grade-7">
+        <div class="unit"> 
+     <h3 class="unit-title collapsible">📖 Unit 1：第一单元：有理数与代数式(Rational Numbers & Algebraic Expressions) <span class="toggle-icon">▼</span></h3> 
+     <div class="lessons collapsible-content"> 
+         
+         <div class="lesson-card"> 
+             <h4 class="lesson-title collapsible">第一单元：有理数与代数式<span class="toggle-icon">▼</span></h4> 
+             <div class="lesson-summary collapsible-content"> 
+                 <ul class="objectives-list"> 
+                     <li class="objective-item" data-objective="u1-l1"> 
+                         <span class="objective-text"><strong>u1-l1:</strong> 理解正数、负数和零的概念，能够识别并使用它们表示具有相反意义的量。<br> Understand the concepts of positive numbers, negative numbers,and zero; identify and use them to represent quantities with opposite meanings.</span>
+                         <div class="star-rating"><span class="star" data-rating="1">★</span><span class="star" data-rating="2">★</span><span class="star" data-rating="3">★</span><span class="rating-label">未评分</span></div> 
+                     </li> 
+                     <li class="objective-item" data-objective="u1-l2"> 
+                         <span class="objective-text"><strong>u1-l2:</strong> 掌握有理数的概念，能够对有理数进行准确运算。<br> Grasp the concept of rational numbers and perform accurate operations with them.</span> 
+                         <div class="star-rating"><span class="star" data-rating="1">★</span><span class="star" data-rating="2">★</span><span class="star" data-rating="3">★</span><span class="rating-label">未评分</span></div> 
+                     </li> 
+                     <li class="objective-item" data-objective="u1-l3"> 
+                         <span class="objective-text"><strong>u1-l3:</strong> 理解用字母表示数的意义，能够列出代数式表示数量关系。<br> Understand the meaning of using letters to represent numbers; write algebraic expressions to represent quantitative relationships.</span> 
+                         <div class="star-rating"><span class="star" data-rating="1">★</span><span class="star" data-rating="2">★</span><span class="star" data-rating="3">★</span><span class="rating-label">未评分</span></div> 
+                     </li>
+                     <li class="objective-item" data-objective="u1-l4"> 
+                         <span class="objective-text"><strong>u1-l4:</strong> 掌握对含有一次项和二次项的单字母或双字母的整式进行合并与化简。<br> Master combining and simplifying single-letter or double-letter algebraic expressions containing linear and quadratic terms.</span>
+                         <div class="star-rating"><span class="star" data-rating="1">★</span><span class="star" data-rating="2">★</span><span class="star" data-rating="3">★</span><span class="rating-label">未评分</span></div> 
+                     </li> 
+                       <li class="objective-item" data-objective="u1-l5"> 
+                         <span class="objective-text"><strong>u1-l5:</strong> 能够使用一次整式建立数学模型，解释和分析实际问题，并能评估模型的合理性。<br> Able to establish mathematical models using linear expressions, explain and analyze practical problems, and evaluate the reasonableness of the models.</span>
+                         <div class="star-rating"><span class="star" data-rating="1">★</span><span class="star" data-rating="2">★</span><span class="star" data-rating="3">★</span><span class="rating-label">未评分</span></div> 
+                     </li> 
+                 </ul>
+                 <button class="save-ratings-btn" data-lesson="unit1">保存评分</button> 
+                 <div class="rating-success">评分已保存！</div> 
+             </div> 
+         </div>
+                 <button class="save-ratings-btn" data-lesson="unit1-week3">保存评分</button> 
+                 <div class="rating-success">评分已保存！</div> 
+             </div> 
+         </div> 
+         
+         <!-- AI Bot 助手链接 -->
+         <div class="ai-bot-section">
+             <h4 class="ai-bot-title">🤖 自我评估智能体 - 单元1</h4>
+             <a href="https://yuanqi.tencent.com/agent/SXDQNKxL38zT" target="_blank" class="ai-bot-link">
+                 <span class="ai-bot-icon">🧠</span> <span class="ai-bot-text">打开AI助手</span>
+                 <span class="external-link-icon">↗</span>
+             </a>
+         </div>
+
+         <!-- 学生交流分享区域 -->
+         <div class="student-sharing-section">
+             <div class="sharing-header">
+                 <h4 class="sharing-title">💬 学习交流分享</h4>
+                 <button class="collapse-btn" id="collapseSharing" title="折叠/展开评论区">
+                     <span class="collapse-icon">▼</span>
+                 </button>
+             </div>
+             <div class="sharing-content" id="sharingContent">
+                 <p class="sharing-description">分享你的学习体会、解题思路或有趣的题目吧！</p>
+             
+             <div class="sharing-form">
+                 <textarea 
+                     id="sharingInput" 
+                     class="sharing-textarea" 
+                     placeholder="在这里分享你的学习心得、解题思路、有趣的题目或疑问...&#10;例如：&#10;• 我发现负数运算的技巧是...&#10;• 这道题的解法：...&#10;• 有个有趣的代数式问题：..."
+                     rows="4"
+                 ></textarea>
+                 <div class="sharing-actions">
+                     <button id="submitSharing" class="submit-sharing-btn">📝 分享</button>
+                     <button id="clearSharing" class="clear-sharing-btn">🗑️ 清空</button>
+                 </div>
+             </div>
+
+             <div class="shared-content">
+                 <h5 class="shared-title">📚 同学们的分享</h5>
+                 <div id="sharedMessages" class="shared-messages">
+                     <div class="shared-message sample-message">
+                         <div class="message-header">
+                             <span class="message-author">示例分享</span>
+                             <span class="message-time">刚刚</span>
+                         </div>
+                         <div class="message-content">
+                             我发现在计算有理数时，先确定符号再计算绝对值会更容易！比如 (-3) × (+5) = -(3×5) = -15
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         </div>
+ 
+     </div> 
+ </div>
+
+<div class="unit">
+    <h3 class="unit-title collapsible">📖 Unit 2：一次方程与方程组 (Linear Equations and Systems) <span class="toggle-icon">▼</span></h3>
+    <div class="lessons collapsible-content">
+    </div>
+</div>
+
+<div class="unit">
+    <h3 class="unit-title collapsible">📖 Unit 3：复习与拓展 (Review and Extension) <span class="toggle-icon">▼</span></h3>
+    <div class="lessons collapsible-content">
+    </div>
+</div>
+
+<div class="unit">
+    <h3 class="unit-title collapsible">📖 Unit 4：图形的认知与性质 (Understanding and Properties of Shapes) <span class="toggle-icon">▼</span></h3>
+    <div class="lessons collapsible-content">
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.15.2/dist/av-min.js"></script>
+    <script src="https://lib.youware.com/youware-lib-consumer.1752562065.js" id="yourware-lib"></script>
+    <script src="script.js" defer></script>
+</body>
+</html>

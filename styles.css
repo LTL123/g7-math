@@ -1,0 +1,1034 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 登录界面样式 */
+.login-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.login-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-content h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+/* Header样式更新 */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+.header-left h1 {
+    margin-bottom: 0.5rem;
+}
+
+.header-left p {
+    margin: 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+}
+
+.user-info span {
+    font-size: 1rem;
+}
+
+.logout-btn {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .user-info {
+        justify-content: center;
+    }
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem 0;
+    text-align: center;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+
+
+
+
+
+
+/* 星级评分样式 */
+.objective-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.objective-item:hover {
+    background-color: #f8f9fa;
+}
+
+.objective-text {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.star-rating {
+    display: flex;
+    gap: 2px;
+}
+
+.star {
+    font-size: 1.2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    user-select: none;
+}
+
+.star:hover,
+.star.active {
+    color: #ffd700;
+}
+
+.star.active {
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.rating-label {
+    font-size: 0.8rem;
+    color: #666;
+    margin-left: 0.5rem;
+    min-width: 60px;
+}
+
+.objectives-list {
+    list-style: none;
+    margin-left: 0;
+}
+
+.save-ratings-btn {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    display: none;
+}
+
+.save-ratings-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+}
+
+.save-ratings-btn.show {
+    display: inline-block;
+}
+
+.rating-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+main {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.grade-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.grade-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #f0f0f0;
+    color: #666;
+}
+
+.grade-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.grade-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.grade-content {
+    display: none;
+}
+
+.grade-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.grade-content h2 {
+    text-align: center;
+    color: #4a5568;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.unit {
+    margin-bottom: 2.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.unit:hover {
+    border-color: #667eea;
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+}
+
+.unit-title {
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    padding: 1.5rem;
+    margin: 0;
+    font-size: 1.5rem;
+    color: #2d3748;
+    border-bottom: 2px solid #e2e8f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.unit-title:hover {
+    background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+}
+
+.collapsible {
+    cursor: pointer;
+    user-select: none;
+}
+
+.collapsible-content {
+    max-height: none;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.collapsible-content.collapsed {
+    max-height: 0;
+    padding: 0;
+}
+
+.toggle-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+    color: #667eea;
+}
+
+.toggle-icon.rotated {
+    transform: rotate(180deg);
+}
+
+.lesson-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.lesson-title:hover {
+    color: #667eea;
+}
+
+.lessons {
+    padding: 1rem;
+}
+
+.lesson-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.lesson-card:last-child {
+    margin-bottom: 0;
+}
+
+.lesson-card:hover {
+    background: #f1f3f4;
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-card h4 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.lesson-summary {
+    color: #4a5568;
+}
+
+.lesson-summary p {
+    margin-bottom: 1rem;
+}
+
+.lesson-summary strong {
+    color: #2d3748;
+}
+
+.lesson-summary ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.lesson-summary li {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.lesson-summary li::marker {
+    color: #667eea;
+}
+
+/* 课程操作按钮样式 */
+.lesson-actions {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid #e2e8f0;
+    text-align: center;
+}
+
+.activities-btn {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+    margin-bottom: 1rem;
+}
+
+.activities-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+    background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+}
+
+.activities-preview {
+    color: #4a5568;
+    font-size: 0.9rem;
+    margin: 0;
+    font-style: italic;
+}
+
+/* 活动页面样式 */
+.navigation-bar {
+    margin-bottom: 2rem;
+}
+
+.back-btn {
+    background: #f7fafc;
+    border: 2px solid #e2e8f0;
+    color: #4a5568;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #edf2f7;
+    border-color: #cbd5e0;
+    transform: translateX(-3px);
+}
+
+.activities-page h2 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.lesson-description {
+    color: #4a5568;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.activities-container {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.activity-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.activity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.activity-header h3 {
+    color: #2d3748;
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.activity-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.activity-description {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.activity-details {
+    display: grid;
+    gap: 1rem;
+}
+
+.detail-item {
+    background: #f7fafc;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #48bb78;
+}
+
+.detail-item strong {
+    color: #2d3748;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.detail-item ul {
+    margin: 0.5rem 0 0 1rem;
+    color: #4a5568;
+}
+
+.detail-item li {
+    margin-bottom: 0.3rem;
+}
+
+.activity-summary {
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #e2e8f0;
+}
+
+.activity-summary h3 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.activity-summary p {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.summary-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #48bb78;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #4a5568;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    main {
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+    
+    .grade-selector {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .grade-btn {
+        width: 200px;
+    }
+    
+    .unit-title {
+        font-size: 1.3rem;
+        padding: 1rem;
+    }
+    
+    .lesson-card {
+        padding: 1rem;
+    }
+    
+    .lesson-card h4 {
+        font-size: 1.1rem;
+    }
+    
+    .lesson-actions {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+    }
+    
+    .activities-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .activities-page h2 {
+        font-size: 1.5rem;
+    }
+    
+    .activity-card {
+        padding: 1.5rem;
+    }
+    
+    .activity-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .summary-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
+
+.header-middle {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.tab-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.tab-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 1.5rem 0;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    main {
+        padding: 1rem;
+        margin: 0 10px 1rem;
+    }
+    
+    .unit-title {
+        font-size: 1.2rem;
+    }
+    
+    .lesson-card {
+        padding: 0.8rem;
+    }
+}
+
+/* AI Bot 助手样式 */
+.ai-bot-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ai-bot-title {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.ai-bot-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.ai-bot-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: white;
+    color: #667eea;
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ai-bot-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    background: #f8f9ff;
+}
+
+.ai-bot-icon {
+    font-size: 1.2rem;
+}
+
+.ai-bot-text {
+    flex-grow: 1;
+}
+
+.external-link-icon {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* 学生交流分享区域样式 */
+.student-sharing-section {
+    background: #f8f9ff;
+    border: 2px solid #e3e8ff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.sharing-title {
+    color: #4c51bf;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.sharing-description {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.sharing-form {
+    margin-bottom: 1.5rem;
+}
+
+.sharing-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.75rem;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    line-height: 1.5;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.sharing-textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.sharing-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    justify-content: flex-end;
+}
+
+.submit-sharing-btn, .clear-sharing-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-sharing-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.submit-sharing-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.clear-sharing-btn {
+    background: #f3f4f6;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+}
+
+.clear-sharing-btn:hover {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.shared-content {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1rem;
+}
+
+.shared-title {
+    color: #374151;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.shared-messages {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.shared-message {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    transition: box-shadow 0.2s ease;
+}
+
+.shared-message:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.message-author {
+    font-weight: 600;
+    color: #4c51bf;
+    font-size: 0.85rem;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.message-content {
+    color: #374151;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.sample-message {
+    opacity: 0.8;
+    border-style: dashed;
+}
+
+/* 删除按钮样式 */
+.delete-btn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-left: 8px;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+
+.delete-btn:active {
+    transform: scale(0.95);
+}
+
+/* 评论区折叠功能样式 */
+.sharing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.collapse-btn {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+}
+
+.collapse-btn:hover {
+    background: #e5e7eb;
+    border-color: #9ca3af;
+}
+
+.collapse-icon {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+    color: #6b7280;
+}
+
+.collapse-btn.collapsed .collapse-icon {
+    transform: rotate(-90deg);
+}
+
+.sharing-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 1000px;
+    opacity: 1;
+}
+
+.sharing-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+}
