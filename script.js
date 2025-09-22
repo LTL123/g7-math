@@ -745,6 +745,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化评论区折叠功能
     initializeSharingCollapse();
+    
+    // 初始化数学问题区域的折叠功能
+    initializeMathProblemCollapsible();
 });
 
 // 学生交流分享功能
@@ -1029,4 +1032,26 @@ function initializeSharingCollapse() {
             localStorage.setItem('sharingCollapsed', 'true');
         }
     });
+}
+
+// 初始化数学问题区域的折叠功能
+function initializeMathProblemCollapsible() {
+    const problemTitle = document.querySelector('.problem-title');
+    
+    if (problemTitle) {
+        problemTitle.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const icon = this.querySelector('.toggle-icon');
+            
+            if (this.classList.contains('collapsed')) {
+                this.classList.remove('collapsed');
+                content.classList.remove('collapsed');
+                icon.textContent = '▼';
+            } else {
+                this.classList.add('collapsed');
+                content.classList.add('collapsed');
+                icon.textContent = '▶';
+            }
+        });
+    }
 }
