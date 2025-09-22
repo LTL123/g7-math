@@ -824,10 +824,13 @@ function initializeStudentSharing() {
 }
 
 // 添加消息到显示区域
-function addMessageToDisplay(message) {
+function addMessageToDisplay(message, isPinned = false) {
     const sharedMessages = document.getElementById('sharedMessages');
     const messageDiv = document.createElement('div');
     messageDiv.className = 'shared-message';
+    if (isPinned) {
+        messageDiv.classList.add('pinned-message');
+    }
     messageDiv.setAttribute('data-message-id', message.id);
     
     // 检查是否是当前用户的消息，如果是则显示删除按钮
@@ -846,7 +849,7 @@ function addMessageToDisplay(message) {
     
     // 插入到示例消息之后
     const sampleMessage = sharedMessages.querySelector('.sample-message');
-    if (sampleMessage && sampleMessage.nextSibling) {
+    if (isPinned) {
         sharedMessages.insertBefore(messageDiv, sampleMessage.nextSibling);
     } else {
         sharedMessages.appendChild(messageDiv);
@@ -902,7 +905,8 @@ async function loadSharedMessages() {
                     minute: '2-digit'
                 })
             };
-            addMessageToDisplay(message);
+            const isPinned = message.author === 'user';
+            addMessageToDisplay(message, isPinned);
         });
         
     } catch (error) {
