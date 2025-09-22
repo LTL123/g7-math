@@ -170,6 +170,7 @@ function initLogin() {
         const validUsers = {
             'user': '123456',
             'user1': '123456',
+            'test':'123456',
             'user2': '123456',
             'Kitty': '20121220',
             'Serena': '20111208',
