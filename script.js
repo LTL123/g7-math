@@ -1,8 +1,8 @@
 // 初始化 LeanCloud
 AV.init({
-    appId: '3qzn4aX6LJQW2DZwfhqiokQJ-MdYXbMMI',
-    appKey: 'ztDFPH4wWEKKaLDsaSFN9rUX',
-    serverURL: 'https://3qzn4ax6.api.lncldglobal.com'
+    appId: 'uDt9DqRSqHrU1BF8NpzmOjWx-gzGzoHsz',
+    appKey: 'PihmZu3p47nt4KBxRVCaZT68',
+    serverURL: 'https://udt9dqrs.lc-cn-n1-shared.com'
 });
 
 // 用户管理
@@ -10,6 +10,43 @@ let currentUser = null;
 
 // 学生分享数据模型
 const StudentSharing = AV.Object.extend('StudentSharing');
+
+// 初始化LeanCloud数据表
+async function initializeLeanCloudTables() {
+    try {
+        // 尝试创建一个测试记录来确保表存在
+        const testRating = new (AV.Object.extend('ObjectiveRating'))();
+        testRating.set('test', true);
+        testRating.set('studentId', 'test');
+        testRating.set('objectiveId', 'test');
+        testRating.set('rating', 1);
+        await testRating.save();
+        
+        // 删除测试记录
+        await testRating.destroy();
+        
+        console.log('ObjectiveRating表已初始化');
+    } catch (error) {
+        console.log('ObjectiveRating表初始化失败，将在首次使用时自动创建');
+    }
+    
+    try {
+        // 尝试创建一个测试记录来确保表存在
+        const testSharing = new StudentSharing();
+        testSharing.set('test', true);
+        testSharing.set('author', 'test');
+        testSharing.set('content', 'test');
+        testSharing.set('unit', 'test');
+        await testSharing.save();
+        
+        // 删除测试记录
+        await testSharing.destroy();
+        
+        console.log('StudentSharing表已初始化');
+    } catch (error) {
+        console.log('StudentSharing表初始化失败，将在首次使用时自动创建');
+    }
+}
 
 // 从课程 JSON 渲染页面
 async function renderCurriculumFromJSON() {
@@ -217,6 +254,8 @@ function initLogin() {
         loginModal.style.display = 'none';
         mainContent.style.display = 'block';
         currentUserSpan.textContent = currentUser;
+        // 初始化LeanCloud数据表
+        await initializeLeanCloudTables();
         // 先渲染课程，再加载评分数据
         await renderCurriculumFromJSON();
         loadUserRatings();
@@ -664,32 +703,52 @@ document.addEventListener('DOMContentLoaded', function() {
                     const ObjectiveRating = AV.Object.extend('ObjectiveRating');
                     
                     for (const rating of ratings) {
-                        // 查询是否已存在相同学生和目标的记录
-                        const query = new AV.Query('ObjectiveRating');
-                        query.equalTo('studentId', currentUser || 'anonymous');
-                        query.equalTo('objectiveId', rating.objectiveId);
-                        
-                        const existingRating = await query.first();
-                        
-                        let ratingObj;
-                        if (existingRating) {
-                            // 如果存在，更新现有记录
-                            existingRating.set('lessonName', rating.lessonName);
-                            existingRating.set('objectiveText', rating.objectiveText);
-                            existingRating.set('rating', rating.rating);
-                            existingRating.set('updateTime', new Date());
-                            await existingRating.save();
-                        } else {
-                            // 如果不存在，创建新记录
-                            ratingObj = new ObjectiveRating();
-                            await ratingObj.save({
-                                lessonName: rating.lessonName,
-                                objectiveText: rating.objectiveText,
-                                rating: rating.rating,
-                                studentId: currentUser || 'anonymous',
-                                objectiveId: rating.objectiveId,
-                                updateTime: new Date()
-                            });
+                        try {
+                            // 查询是否已存在相同学生和目标的记录
+                            const query = new AV.Query('ObjectiveRating');
+                            query.equalTo('studentId', currentUser || 'anonymous');
+                            query.equalTo('objectiveId', rating.objectiveId);
+                            
+                            const existingRating = await query.first();
+                            
+                            if (existingRating) {
+                                // 如果存在，更新现有记录
+                                existingRating.set('lessonName', rating.lessonName);
+                                existingRating.set('objectiveText', rating.objectiveText);
+                                existingRating.set('rating', rating.rating);
+                                existingRating.set('updateTime', new Date());
+                                await existingRating.save();
+                            } else {
+                                // 如果不存在，创建新记录
+                                const ratingObj = new ObjectiveRating();
+                                await ratingObj.save({
+                                    lessonName: rating.lessonName,
+                                    objectiveText: rating.objectiveText,
+                                    rating: rating.rating,
+                                    studentId: currentUser || 'anonymous',
+                                    objectiveId: rating.objectiveId,
+                                    updateTime: new Date()
+                                });
+                            }
+                        } catch (ratingError) {
+                            console.error('保存单个评分失败:', ratingError);
+                            // 如果是表不存在的错误，尝试重新初始化
+                            if (ratingError.message && ratingError.message.includes('doesn\'t exists')) {
+                                console.log('尝试重新初始化数据表...');
+                                await initializeLeanCloudTables();
+                                // 重试保存
+                                const ratingObj = new ObjectiveRating();
+                                await ratingObj.save({
+                                    lessonName: rating.lessonName,
+                                    objectiveText: rating.objectiveText,
+                                    rating: rating.rating,
+                                    studentId: currentUser || 'anonymous',
+                                    objectiveId: rating.objectiveId,
+                                    updateTime: new Date()
+                                });
+                            } else {
+                                throw ratingError;
+                            }
                         }
                     }
                     
@@ -744,8 +803,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化学生交流分享功能
     initializeStudentSharing();
     
+    // 初始化第二单元学生交流分享功能
+    initializeStudentSharing2();
+    
     // 初始化评论区折叠功能
     initializeSharingCollapse();
+    
+    // 初始化第二单元评论区折叠功能
+    initializeSharingCollapse2();
     
     // 初始化数学问题区域的折叠功能
     initializeMathProblemCollapsible();
@@ -797,7 +862,23 @@ function initializeStudentSharing() {
             
         } catch (error) {
             console.error('分享失败:', error);
-            alert('分享失败，请稍后重试！');
+            // 如果是表不存在的错误，尝试重新初始化
+            if (error.message && error.message.includes('doesn\'t exists')) {
+                console.log('尝试重新初始化数据表...');
+                await initializeLeanCloudTables();
+                // 重试保存
+                try {
+                    await saveMessageToCloud(content);
+                    sharingInput.value = '';
+                    showSuccessMessage('分享成功！');
+                    await loadSharedMessages();
+                } catch (retryError) {
+                    console.error('重试分享失败:', retryError);
+                    alert('分享失败，请稍后重试！');
+                }
+            } else {
+                alert('分享失败，请稍后重试！');
+            }
         } finally {
             // 恢复按钮状态
             submitBtn.disabled = false;
@@ -827,6 +908,14 @@ function initializeStudentSharing() {
     });
 }
 
+// 链接自动转换
+function linkify(text) {
+    const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(urlRegex, function(url) {
+        return '<a href="' + url + '" target="_blank">' + url + '</a>';
+    });
+}
+
 // 添加消息到显示区域
 function addMessageToDisplay(message, isPinned = false) {
     const sharedMessages = document.getElementById('sharedMessages');
@@ -840,7 +929,7 @@ function addMessageToDisplay(message, isPinned = false) {
     // 检查是否是当前用户的消息，如果是则显示删除按钮
     const isCurrentUserMessage = currentUser && message.author === currentUser;
     const deleteButtonHtml = isCurrentUserMessage ? 
-        `<button class="delete-btn" onclick="confirmDeleteMessage('${message.id}')" title="删除这条评论">×</button>` : '';
+        `<button class="delete-btn" onclick="confirmDeleteMessage2('${message.id}')" title="删除这条评论">×</button>` : '';
     
     messageDiv.innerHTML = `
         <div class="message-header">
@@ -848,7 +937,7 @@ function addMessageToDisplay(message, isPinned = false) {
             <span class="message-time">${message.time}</span>
             ${deleteButtonHtml}
         </div>
-        <div class="message-content">${escapeHtml(message.content)}</div>
+        <div class="message-content">${linkify(escapeHtml(message.content))}</div>
     `;
     
     // 插入到示例消息之后
@@ -1055,4 +1144,274 @@ function initializeMathProblemCollapsible() {
             }
         });
     }
+}
+
+// 第二单元学生交流分享功能
+function initializeStudentSharing2() {
+    const sharingInput = document.getElementById('sharingInput2');
+    const submitBtn = document.getElementById('submitSharing2');
+    const clearBtn = document.getElementById('clearSharing2');
+    const sharedMessages = document.getElementById('sharedMessages2');
+    
+    if (!sharingInput || !submitBtn || !clearBtn || !sharedMessages) {
+        return; // 如果元素不存在，直接返回
+    }
+    
+    // 从LeanCloud加载已分享的消息
+    loadSharedMessages2();
+    
+    // 提交分享
+    submitBtn.addEventListener('click', async function() {
+        const content = sharingInput.value.trim();
+        if (!content) {
+            alert('请输入要分享的内容！');
+            return;
+        }
+        
+        if (content.length > 500) {
+            alert('分享内容不能超过500字符！');
+            return;
+        }
+        
+        // 禁用按钮防止重复提交
+        submitBtn.disabled = true;
+        submitBtn.textContent = '分享中...';
+        
+        try {
+            // 保存到LeanCloud
+            await saveMessageToCloud2(content);
+            
+            // 清空输入框
+            sharingInput.value = '';
+            
+            // 显示成功提示
+            showSuccessMessage('分享成功！');
+            
+            // 重新加载消息列表
+            await loadSharedMessages2();
+            
+        } catch (error) {
+            console.error('分享失败:', error);
+            // 如果是表不存在的错误，尝试重新初始化
+            if (error.message && error.message.includes('doesn\'t exists')) {
+                console.log('尝试重新初始化数据表...');
+                await initializeLeanCloudTables();
+                // 重试保存
+                try {
+                    await saveMessageToCloud2(content);
+                    sharingInput.value = '';
+                    showSuccessMessage('分享成功！');
+                    await loadSharedMessages2();
+                } catch (retryError) {
+                    console.error('重试分享失败:', retryError);
+                    alert('分享失败，请稍后重试！');
+                }
+            } else {
+                alert('分享失败，请稍后重试！');
+            }
+        } finally {
+            // 恢复按钮状态
+            submitBtn.disabled = false;
+            submitBtn.textContent = '📝 分享';
+        }
+    });
+    
+    // 清空输入框
+    clearBtn.addEventListener('click', function() {
+        if (sharingInput.value.trim()) {
+            if (confirm('确定要清空输入的内容吗？')) {
+                sharingInput.value = '';
+            }
+        }
+    });
+    
+    // 字符计数提示
+    sharingInput.addEventListener('input', function() {
+        const length = this.value.length;
+        if (length > 450) {
+            this.style.borderColor = '#f59e0b';
+        } else if (length > 500) {
+            this.style.borderColor = '#ef4444';
+        } else {
+            this.style.borderColor = '#d1d5db';
+        }
+    });
+}
+
+// 添加消息到第二单元显示区域
+function addMessageToDisplay2(message, isPinned = false) {
+    const sharedMessages = document.getElementById('sharedMessages2');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'shared-message';
+    if (isPinned) {
+        messageDiv.classList.add('pinned-message');
+    }
+    messageDiv.setAttribute('data-message-id', message.id);
+    
+    // 检查是否是当前用户的消息，如果是则显示删除按钮
+    const isCurrentUserMessage = currentUser && message.author === currentUser;
+    const deleteButtonHtml = isCurrentUserMessage ? 
+        `<button class="delete-btn" onclick="confirmDeleteMessage2('${message.id}')" title="删除这条评论">×</button>` : '';
+    
+    messageDiv.innerHTML = `
+        <div class="message-header">
+            <span class="message-author">${escapeHtml(message.author)}</span>
+            <span class="message-time">${message.time}</span>
+            ${deleteButtonHtml}
+        </div>
+        <div class="message-content">${linkify(escapeHtml(message.content))}</div>
+    `;
+    
+    // 插入到示例消息之后
+    const sampleMessage = sharedMessages.querySelector('.sample-message');
+    if (isPinned) {
+        sharedMessages.insertBefore(messageDiv, sampleMessage.nextSibling);
+    } else {
+        sharedMessages.appendChild(messageDiv);
+    }
+    
+    // 滚动到新消息
+    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// 保存消息到LeanCloud（第二单元）
+async function saveMessageToCloud2(content) {
+    try {
+        const sharing = new StudentSharing();
+        sharing.set('author', currentUser || '匿名同学');
+        sharing.set('content', content);
+        sharing.set('unit', 'Unit 2'); // 第二单元
+        
+        await sharing.save();
+        return sharing;
+    } catch (error) {
+        console.error('保存到LeanCloud失败:', error);
+        throw error;
+    }
+}
+
+// 从LeanCloud加载消息（第二单元）
+async function loadSharedMessages2() {
+    try {
+        // 清空现有消息（保留示例消息）
+        const sharedMessages = document.getElementById('sharedMessages2');
+        const sampleMessage = sharedMessages.querySelector('.sample-message');
+        const existingMessages = sharedMessages.querySelectorAll('.shared-message:not(.sample-message)');
+        existingMessages.forEach(msg => msg.remove());
+        
+        // 查询LeanCloud中的分享消息
+        const query = new AV.Query('StudentSharing');
+        query.equalTo('unit', 'Unit 2'); // 只加载第二单元的消息
+        query.descending('createdAt'); // 按创建时间降序排列
+        query.limit(50); // 限制最多50条
+        
+        const results = await query.find();
+        
+        // 显示消息
+        results.forEach(sharing => {
+            const message = {
+                id: sharing.id,
+                author: sharing.get('author'),
+                content: sharing.get('content'),
+                time: sharing.createdAt.toLocaleString('zh-CN', {
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+            };
+            const isPinned = message.author === 'user';
+            addMessageToDisplay2(message, isPinned);
+        });
+        
+    } catch (error) {
+        console.error('从LeanCloud加载消息失败:', error);
+        // 如果云端加载失败，尝试加载本地备份
+        loadLocalBackupMessages2();
+    }
+}
+
+// 加载本地备份消息（第二单元）
+function loadLocalBackupMessages2() {
+    try {
+        const messages = JSON.parse(localStorage.getItem('sharedMessages2') || '[]');
+        messages.forEach(message => {
+            addMessageToDisplay2(message);
+        });
+    } catch (error) {
+        console.error('加载本地备份消息失败:', error);
+    }
+}
+
+// 确认删除消息（第二单元）
+function confirmDeleteMessage2(messageId) {
+    if (confirm('确定要删除这条评论吗？删除后无法恢复。')) {
+        deleteMessage2(messageId);
+    }
+}
+
+// 删除消息函数（第二单元）
+async function deleteMessage2(messageId) {
+    try {
+        // 从LeanCloud删除消息
+        const query = new AV.Query('StudentSharing');
+        const sharing = await query.get(messageId);
+        
+        // 验证是否是当前用户的消息
+        if (sharing.get('author') !== currentUser) {
+            alert('您只能删除自己的评论！');
+            return;
+        }
+        
+        await sharing.destroy();
+        
+        // 从页面移除消息元素
+        const messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
+        if (messageElement) {
+            messageElement.remove();
+        }
+        
+        showSuccessMessage('评论已删除');
+        
+    } catch (error) {
+         console.error('删除消息失败:', error);
+         alert('删除失败，请稍后重试');
+     }
+ }
+
+// 初始化第二单元评论区折叠功能
+function initializeSharingCollapse2() {
+    const collapseBtn = document.getElementById('collapseSharing2');
+    const sharingContent = document.getElementById('sharingContent2');
+    
+    if (!collapseBtn || !sharingContent) {
+        console.warn('第二单元折叠按钮或内容区域未找到');
+        return;
+    }
+    
+    // 从本地存储读取折叠状态
+    const isCollapsed = localStorage.getItem('sharingCollapsed2') === 'true';
+    
+    // 设置初始状态
+    if (isCollapsed) {
+        sharingContent.classList.add('collapsed');
+        collapseBtn.classList.add('collapsed');
+    }
+    
+    // 添加点击事件监听器
+    collapseBtn.addEventListener('click', function() {
+        const isCurrentlyCollapsed = sharingContent.classList.contains('collapsed');
+        
+        if (isCurrentlyCollapsed) {
+            // 展开
+            sharingContent.classList.remove('collapsed');
+            collapseBtn.classList.remove('collapsed');
+            localStorage.setItem('sharingCollapsed2', 'false');
+        } else {
+            // 折叠
+            sharingContent.classList.add('collapsed');
+            collapseBtn.classList.add('collapsed');
+            localStorage.setItem('sharingCollapsed2', 'true');
+        }
+    });
 }

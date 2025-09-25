@@ -11,69 +11,140 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    animation: fadeIn 0.5s ease-in;
 }
 
 .login-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 3rem 2.5rem;
+    border-radius: 20px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.6s ease-out;
+}
+
+.login-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .login-content h2 {
-    margin-bottom: 1.5rem;
-    color: #333;
-    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #2d3748;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     text-align: left;
+    position: relative;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #555;
-    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: #4a5568;
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
 .form-group input {
     width: 100%;
-    padding: 0.75rem;
-    border: 2px solid #ddd;
-    border-radius: 5px;
+    padding: 1rem 1.25rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
 }
 
 .form-group input:focus {
     outline: none;
     border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+}
+
+.form-group input::placeholder {
+    color: #a0aec0;
 }
 
 .login-btn {
     width: 100%;
-    padding: 0.75rem;
+    padding: 1rem 1.5rem;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 1rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.login-btn:hover::before {
+    left: 100%;
 }
 
 .login-btn:hover {
     transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.login-btn:active {
+    transform: translateY(0);
 }
 
 .error-message {
@@ -136,11 +207,61 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+    z-index: -1;
+    animation: backgroundShift 20s ease-in-out infinite;
+}
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5a6fd8, #6a4190);
+}
+
+/* Firefox 滚动条样式 */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #667eea rgba(255, 255, 255, 0.1);
+}
+
+@keyframes backgroundShift {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(-10px) translateY(-5px); }
+    50% { transform: translateX(5px) translateY(-10px); }
+    75% { transform: translateX(-5px) translateY(5px); }
 }
 
 .container {
@@ -150,23 +271,49 @@ body {
 }
 
 header {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 2rem 0;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem 0;
     text-align: center;
     color: white;
     margin-bottom: 2rem;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    z-index: -1;
 }
 
 header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff, #f0f8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    from { filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)); }
+    to { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6)); }
 }
 
 header p {
-    font-size: 1.2rem;
-    opacity: 0.9;
+    font-size: 1.3rem;
+    opacity: 0.95;
+    font-weight: 500;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -180,14 +327,37 @@ header p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    margin-bottom: 0.75rem;
+    padding: 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: rgba(248, 249, 250, 0.5);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.objective-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .objective-item:hover {
-    background-color: #f8f9fa;
+    background: rgba(248, 249, 250, 0.8);
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.objective-item:hover::before {
+    opacity: 1;
 }
 
 .objective-text {
@@ -201,20 +371,50 @@ header p {
 }
 
 .star {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #ddd;
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: all 0.3s ease;
     user-select: none;
+    position: relative;
+    margin: 0 2px;
 }
 
-.star:hover,
+.star::before {
+    content: '★';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: transparent;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.star:hover {
+    color: #ffd700;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+}
+
+.star:hover::before {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
 .star.active {
     color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
 }
 
-.star.active {
-    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+.star.active::before {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .rating-label {
@@ -233,18 +433,42 @@ header p {
     background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 1rem;
+    transition: all 0.4s ease;
+    margin-top: 1.5rem;
     display: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+}
+
+.save-ratings-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.save-ratings-btn:hover::before {
+    left: 100%;
 }
 
 .save-ratings-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+    background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+}
+
+.save-ratings-btn:active {
+    transform: translateY(-1px) scale(1.02);
 }
 
 .save-ratings-btn.show {
@@ -252,21 +476,51 @@ header p {
 }
 
 .rating-success {
-    background: #d4edda;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
     color: #155724;
-    padding: 0.5rem;
-    border-radius: 5px;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
     font-size: 0.9rem;
-    margin-top: 0.5rem;
+    font-weight: 600;
+    margin-top: 0.75rem;
     display: none;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+    animation: pulse 2s infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.rating-success::before {
+    content: '✓';
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #28a745;
 }
 
 main {
-    background: white;
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 2.5rem;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
     margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
 }
 
 .grade-selector {
@@ -320,6 +574,22 @@ main {
     }
 }
 
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
 .grade-content h2 {
     text-align: center;
     color: #4a5568;
@@ -329,33 +599,75 @@ main {
 
 .unit {
     margin-bottom: 2.5rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    position: relative;
+}
+
+.unit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
 }
 
 .unit:hover {
     border-color: #667eea;
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+    box-shadow: 
+        0 15px 35px rgba(102, 126, 234, 0.15),
+        0 0 0 1px rgba(102, 126, 234, 0.1);
+    transform: translateY(-3px);
+}
+
+.unit:hover::before {
+    opacity: 1;
 }
 
 .unit-title {
-    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    padding: 2rem;
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: #2d3748;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.2);
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: 700;
+    position: relative;
+}
+
+.unit-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .unit-title:hover {
-    background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+    color: #667eea;
+}
+
+.unit-title:hover::before {
+    opacity: 1;
 }
 
 .collapsible {
@@ -400,12 +712,28 @@ main {
 }
 
 .lesson-card {
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
+    background: rgba(248, 249, 250, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
     border-left: 4px solid #667eea;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.lesson-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.03), rgba(118, 75, 162, 0.03));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
 }
 
 .lesson-card:last-child {
@@ -413,9 +741,15 @@ main {
 }
 
 .lesson-card:hover {
-    background: #f1f3f4;
-    transform: translateX(5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background: rgba(241, 243, 244, 0.9);
+    transform: translateX(8px) translateY(-2px);
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(102, 126, 234, 0.1);
+}
+
+.lesson-card:hover::before {
+    opacity: 1;
 }
 
 .lesson-card h4 {
@@ -645,17 +979,22 @@ main {
         padding: 0 15px;
     }
     
+    header {
+        padding: 2rem 0;
+    }
+    
     header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
     
     header p {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
     
     main {
         padding: 1.5rem;
-        border-radius: 15px;
+        border-radius: 20px;
+        margin: 0 10px 2rem;
     }
     
     .grade-selector {
@@ -668,16 +1007,16 @@ main {
     }
     
     .unit-title {
-        font-size: 1.3rem;
-        padding: 1rem;
+        font-size: 1.4rem;
+        padding: 1.5rem;
     }
     
     .lesson-card {
-        padding: 1rem;
+        padding: 1.5rem;
     }
     
     .lesson-card h4 {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
     
     .lesson-actions {
@@ -707,6 +1046,21 @@ main {
     .summary-stats {
         flex-direction: column;
         gap: 1.5rem;
+    }
+    
+    .ai-bot-section {
+        margin: 1rem 0;
+        padding: 1.25rem;
+    }
+    
+    .math-problem-section {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+    
+    .student-sharing-section {
+        padding: 1.5rem;
+        margin-top: 1.5rem;
     }
 }
 
@@ -755,14 +1109,70 @@ main {
 /* AI Bot 助手样式 */
 .ai-bot-section {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 1rem;
     margin-top: 1rem;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-    max-width: 400px;
+    box-shadow: 
+        0 8px 25px rgba(102, 126, 234, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    max-width: 350px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.ai-bot-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.ai-bot-section:hover::before {
+    left: 100%;
+}
+
+.ai-bot-section:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 12px 35px rgba(102, 126, 234, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.bot-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.teaching-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.teaching-links .ai-bot-link {
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .teaching-links {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .teaching-links .ai-bot-link {
+        margin-bottom: 0;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
 }
 
 .ai-bot-title {
@@ -782,22 +1192,45 @@ main {
 .ai-bot-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    background: white;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     color: #667eea;
     text-decoration: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.4s ease;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-bot-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.ai-bot-link:hover::before {
+    left: 100%;
 }
 
 .ai-bot-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    background: #f8f9ff;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.3);
+    background: rgba(248, 249, 255, 0.98);
+    color: #5a6fd8;
 }
 
 .ai-bot-icon {
@@ -815,11 +1248,32 @@ main {
 
 /* 学生交流分享区域样式 */
 .student-sharing-section {
-    background: #f8f9ff;
-    border: 2px solid #e3e8ff;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-top: 1.5rem;
+    background: linear-gradient(135deg, rgba(248, 249, 255, 0.9) 0%, rgba(227, 232, 255, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(227, 232, 255, 0.6);
+    border-radius: 18px;
+    padding: 2rem;
+    margin-top: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.student-sharing-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+}
+
+.student-sharing-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 25px rgba(102, 126, 234, 0.1),
+        0 0 0 1px rgba(102, 126, 234, 0.1);
 }
 
 .sharing-title {
@@ -915,16 +1369,38 @@ main {
 }
 
 .shared-message {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 0.75rem;
-    margin-bottom: 0.75rem;
-    transition: box-shadow 0.2s ease;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(229, 231, 235, 0.6);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.shared-message::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .shared-message:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(102, 126, 234, 0.1);
+    transform: translateX(3px);
+}
+
+.shared-message:hover::before {
+    opacity: 1;
 }
 
 .message-header {
@@ -1042,18 +1518,35 @@ main {
 
 /* 数学问题练习区域样式 */
 .math-problem-section {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border: 2px solid #dee2e6;
-    border-radius: 15px;
-    padding: 25px;
-    margin: 20px 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    background: linear-gradient(135deg, rgba(248, 249, 250, 0.9) 0%, rgba(233, 236, 239, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(222, 226, 230, 0.5);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.math-problem-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
 }
 
 .math-problem-section:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 12px 35px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(102, 126, 234, 0.1);
 }
 
 .problem-title {
