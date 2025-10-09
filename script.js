@@ -931,14 +931,34 @@ function addMessageToDisplay(message, isPinned = false) {
     const deleteButtonHtml = isCurrentUserMessage ? 
         `<button class="delete-btn" onclick="confirmDeleteMessage2('${message.id}')" title="删除这条评论">×</button>` : '';
     
-    messageDiv.innerHTML = `
-        <div class="message-header">
-            <span class="message-author">${escapeHtml(message.author)}</span>
-            <span class="message-time">${message.time}</span>
-            ${deleteButtonHtml}
-        </div>
-        <div class="message-content">${linkify(escapeHtml(message.content))}</div>
-    `;
+    // 创建消息头部
+    const messageHeader = document.createElement('div');
+    messageHeader.className = 'message-header';
+    
+    const authorSpan = document.createElement('span');
+    authorSpan.className = 'message-author';
+    authorSpan.textContent = message.author; // 直接使用textContent避免编码问题
+    
+    const timeSpan = document.createElement('span');
+    timeSpan.className = 'message-time';
+    timeSpan.textContent = message.time;
+    
+    messageHeader.appendChild(authorSpan);
+    messageHeader.appendChild(timeSpan);
+    
+    // 如果有删除按钮，添加到头部
+    if (deleteButtonHtml) {
+        messageHeader.insertAdjacentHTML('beforeend', deleteButtonHtml);
+    }
+    
+    // 创建消息内容
+    const messageContent = document.createElement('div');
+    messageContent.className = 'message-content';
+    messageContent.innerHTML = linkify(escapeHtml(message.content));
+    
+    // 组装消息
+    messageDiv.appendChild(messageHeader);
+    messageDiv.appendChild(messageContent);
     
     // 插入到示例消息之后
     const sampleMessage = sharedMessages.querySelector('.sample-message');
@@ -989,8 +1009,8 @@ async function loadSharedMessages() {
         results.forEach(sharing => {
             const message = {
                 id: sharing.id,
-                author: sharing.get('author'),
-                content: sharing.get('content'),
+                author: sharing.get('author') || '匿名用户',
+                content: sharing.get('content') || '',
                 time: sharing.createdAt.toLocaleString('zh-CN', {
                     month: '2-digit',
                     day: '2-digit',
@@ -998,8 +1018,12 @@ async function loadSharedMessages() {
                     minute: '2-digit'
                 })
             };
-            const isPinned = message.author === 'user';
-            addMessageToDisplay(message, isPinned);
+            
+            // 确保字符串数据正确处理
+            if (typeof message.author === 'string' && typeof message.content === 'string') {
+                const isPinned = message.author === 'user';
+                addMessageToDisplay(message, isPinned);
+            }
         });
         
     } catch (error) {
@@ -1021,11 +1045,17 @@ function loadLocalBackupMessages() {
     }
 }
 
-// HTML转义函数
+// HTML转义函数 - 改进版本，更好地处理中文字符
 function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    if (!text) return '';
+    
+    // 使用更安全的方式处理HTML转义，避免中文字符编码问题
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }
 
 // 显示成功消息
@@ -1253,14 +1283,34 @@ function addMessageToDisplay2(message, isPinned = false) {
     const deleteButtonHtml = isCurrentUserMessage ? 
         `<button class="delete-btn" onclick="confirmDeleteMessage2('${message.id}')" title="删除这条评论">×</button>` : '';
     
-    messageDiv.innerHTML = `
-        <div class="message-header">
-            <span class="message-author">${escapeHtml(message.author)}</span>
-            <span class="message-time">${message.time}</span>
-            ${deleteButtonHtml}
-        </div>
-        <div class="message-content">${linkify(escapeHtml(message.content))}</div>
-    `;
+    // 创建消息头部
+    const messageHeader = document.createElement('div');
+    messageHeader.className = 'message-header';
+    
+    const authorSpan = document.createElement('span');
+    authorSpan.className = 'message-author';
+    authorSpan.textContent = message.author; // 直接使用textContent避免编码问题
+    
+    const timeSpan = document.createElement('span');
+    timeSpan.className = 'message-time';
+    timeSpan.textContent = message.time;
+    
+    messageHeader.appendChild(authorSpan);
+    messageHeader.appendChild(timeSpan);
+    
+    // 如果有删除按钮，添加到头部
+    if (deleteButtonHtml) {
+        messageHeader.insertAdjacentHTML('beforeend', deleteButtonHtml);
+    }
+    
+    // 创建消息内容
+    const messageContent = document.createElement('div');
+    messageContent.className = 'message-content';
+    messageContent.innerHTML = linkify(escapeHtml(message.content));
+    
+    // 组装消息
+    messageDiv.appendChild(messageHeader);
+    messageDiv.appendChild(messageContent);
     
     // 插入到示例消息之后
     const sampleMessage = sharedMessages.querySelector('.sample-message');
@@ -1311,8 +1361,8 @@ async function loadSharedMessages2() {
         results.forEach(sharing => {
             const message = {
                 id: sharing.id,
-                author: sharing.get('author'),
-                content: sharing.get('content'),
+                author: sharing.get('author') || '匿名用户',
+                content: sharing.get('content') || '',
                 time: sharing.createdAt.toLocaleString('zh-CN', {
                     month: '2-digit',
                     day: '2-digit',
@@ -1320,8 +1370,12 @@ async function loadSharedMessages2() {
                     minute: '2-digit'
                 })
             };
-            const isPinned = message.author === 'user';
-            addMessageToDisplay2(message, isPinned);
+            
+            // 确保字符串数据正确处理
+            if (typeof message.author === 'string' && typeof message.content === 'string') {
+                const isPinned = message.author === 'user';
+                addMessageToDisplay2(message, isPinned);
+            }
         });
         
     } catch (error) {
