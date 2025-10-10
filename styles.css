@@ -1107,143 +1107,52 @@ main::before {
 }
 
 /* AI Bot 助手样式 */
-.ai-bot-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 15px;
-    padding: 1rem;
-    margin-top: 1rem;
-    text-align: center;
-    box-shadow: 
-        0 8px 25px rgba(102, 126, 234, 0.25),
-        0 0 0 1px rgba(255, 255, 255, 0.1);
-    max-width: 350px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.ai-bot-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.6s ease;
-}
-
-.ai-bot-section:hover::before {
-    left: 100%;
-}
-
-.ai-bot-section:hover {
-    transform: translateY(-3px);
-    box-shadow: 
-        0 12px 35px rgba(102, 126, 234, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.2);
-}
-
 .bot-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
-}
-
-.teaching-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.teaching-links .ai-bot-link {
-    margin-bottom: 1rem;
-}
-
-@media (min-width: 768px) {
-    .teaching-links {
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .teaching-links .ai-bot-link {
-        margin-bottom: 0;
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-}
-
-.ai-bot-title {
-    color: white;
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
-    font-weight: 600;
-}
-
-.ai-bot-description {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.85rem;
-    margin-bottom: 0.75rem;
-    line-height: 1.4;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    margin-top: 2rem;
 }
 
 .ai-bot-link {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 0.6rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    color: #667eea;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.9);
+    color: #4a5568;
     text-decoration: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px;
-    font-weight: 700;
-    font-size: 1rem;
-    transition: all 0.4s ease;
-    box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.1),
-        0 0 0 1px rgba(255, 255, 255, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-.ai-bot-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-    transition: left 0.5s ease;
-}
-
-.ai-bot-link:hover::before {
-    left: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .ai-bot-link:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.15),
-        0 0 0 1px rgba(255, 255, 255, 0.3);
-    background: rgba(248, 249, 255, 0.98);
-    color: #5a6fd8;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    background: white;
+    color: #667eea;
 }
 
 .ai-bot-icon {
-    font-size: 1.2rem;
-}
-
-.ai-bot-text {
-    flex-grow: 1;
+    font-size: 1.3rem;
 }
 
 .external-link-icon {
-    font-size: 0.9rem;
-    opacity: 0.7;
+    font-size: 1rem;
+    opacity: 0.6;
+    transition: transform 0.3s ease;
+}
+
+.ai-bot-link:hover .external-link-icon {
+    transform: translateX(3px);
 }
 
 /* 学生交流分享区域样式 */
