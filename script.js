@@ -1469,3 +1469,140 @@ function initializeSharingCollapse2() {
         }
     });
 }
+
+// 导航栏功能
+function initializeUnitNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const units = document.querySelectorAll('.unit');
+    
+    // 初始化：显示第一个单元
+    showUnit('unit1');
+    
+    // 为每个导航链接添加点击事件
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetUnit = this.getAttribute('data-unit');
+            showUnit(targetUnit);
+            
+            // 更新导航链接的活动状态
+            updateActiveNavLink(this);
+            
+            // 平滑滚动到页面顶部
+            scrollToTop();
+        });
+    });
+    
+    // 显示指定单元的函数
+    function showUnit(unitId) {
+        units.forEach(unit => {
+            if (unit.id === unitId) {
+                unit.classList.add('active');
+                // 确保单元内容展开
+                const collapsibleContent = unit.querySelector('.collapsible-content');
+                if (collapsibleContent && collapsibleContent.classList.contains('collapsed')) {
+                    const unitTitle = unit.querySelector('.unit-title');
+                    if (unitTitle) {
+                        unitTitle.click(); // 触发展开
+                    }
+                }
+            } else {
+                unit.classList.remove('active');
+            }
+        });
+    }
+    
+    // 更新导航链接活动状态
+    function updateActiveNavLink(activeLink) {
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+        activeLink.classList.add('active');
+    }
+    
+    // 平滑滚动到页面顶部
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    
+    // 监听滚动事件，根据当前可见的单元更新导航状态
+    function handleScroll() {
+        const scrollPosition = window.scrollY + 100; // 考虑导航栏高度
+        
+        units.forEach(unit => {
+            if (unit.classList.contains('active')) {
+                const unitTop = unit.offsetTop;
+                const unitBottom = unitTop + unit.offsetHeight;
+                
+                if (scrollPosition >= unitTop && scrollPosition < unitBottom) {
+                    const correspondingNavLink = document.querySelector(`[data-unit="${unit.id}"]`);
+                    if (correspondingNavLink && !correspondingNavLink.classList.contains('active')) {
+                        updateActiveNavLink(correspondingNavLink);
+                    }
+                }
+            }
+        });
+    }
+    
+    // 节流函数，优化滚动性能
+    function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
+    }
+    
+    // 添加滚动监听（节流处理）
+    window.addEventListener('scroll', throttle(handleScroll, 100));
+    
+    // 键盘导航支持
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey || e.metaKey) {
+            const currentActiveLink = document.querySelector('.nav-link.active');
+            const currentIndex = Array.from(navLinks).indexOf(currentActiveLink);
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    if (currentIndex > 0) {
+                        navLinks[currentIndex - 1].click();
+                    }
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    if (currentIndex < navLinks.length - 1) {
+                        navLinks[currentIndex + 1].click();
+                    }
+                    break;
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                    e.preventDefault();
+                    const unitIndex = parseInt(e.key) - 1;
+                    if (unitIndex < navLinks.length) {
+                        navLinks[unitIndex].click();
+                    }
+                    break;
+            }
+        }
+    });
+}
+
+// 在页面加载完成后初始化导航功能
+document.addEventListener('DOMContentLoaded', function() {
+    // 等待其他初始化完成后再初始化导航
+    setTimeout(() => {
+        initializeUnitNavigation();
+    }, 100);
+});
