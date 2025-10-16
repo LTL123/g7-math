@@ -53,16 +53,25 @@
     <nav class="unit-navigation">
         <div class="nav-container">
             <div class="nav-links">
-                <a href="#unit1" class="nav-link active" data-unit="unit1">Unit 1: 有理数与代数式</a>
-                <a href="#unit2" class="nav-link" data-unit="unit2">Unit 2: 一元一次方程</a>
-                <a href="#unit3" class="nav-link" data-unit="unit3">Unit 3: 复习与拓展</a>
-                <a href="#unit4" class="nav-link" data-unit="unit4">Unit 4: 图形的认知</a>
+                <a href="unit1.html" class="nav-link" data-unit="unit1">Unit 1: 有理数与代数式</a>
+                <a href="unit2.html" class="nav-link" data-unit="unit2">Unit 2: 一元一次方程</a>
+                <a href="unit3.html" class="nav-link" data-unit="unit3">Unit 3: 复习与拓展</a>
+                <a href="unit4.html" class="nav-link" data-unit="unit4">Unit 4: 图形的认知</a>
             </div>
         </div>
     </nav>
 
     <!-- 主要内容容器 -->
     <div class="main-content">
+    <!-- 查看评分列表 -->
+    <div class="ratings-view" style="margin: 16px 0;">
+        <button id="viewRatingsBtn" class="save-ratings-btn">查看评分</button>
+        <div id="ratingsPanel" class="collapsible-content" style="display:none; padding: 12px 16px; border: 1px solid #eee; border-radius: 8px; margin-top: 10px;">
+            <h4 style="margin: 0 0 8px;">最近评分</h4>
+            <ul id="ratingsList" style="list-style: none; padding: 0; margin: 0;">
+            </ul>
+        </div>
+    </div>
 <div class="unit" id="unit1">
     <h3 class="unit-title collapsible">📖 Unit 1：第一单元：有理数与代数式(Rational Numbers & Algebraic Expressions) <span class="toggle-icon">▼</span></h3>
     <div class="lessons collapsible-content">
@@ -109,6 +118,11 @@
             <a href="https://ltl123.github.io/g7-algebraic-Manipulation-1/" target="_blank" class="ai-bot-link">
                 <span class="ai-bot-icon">🧠</span> <span class="ai-bot-text">Algebraic Manipulation</span>
                 <span class="external-link-icon">↗</span>
+            </a>
+            <a href="https://drive.weixin.qq.com/s?k=AIkA9Qf4AHY8FhPnNH" target="_blank" rel="noopener noreferrer" class="ai-bot-link" title="Unit 1 Exercise" aria-label="打开 Unit 1 Exercise">
+                <span class="ai-bot-icon" aria-hidden="true">📄</span>
+                <span class="ai-bot-text">Unit 1 Exercise</span>
+                <span class="external-link-icon" aria-hidden="true">↗</span>
             </a>
         </div>
 
@@ -236,39 +250,48 @@
                 <div class="rating-success">评分已保存！</div>
             </div>
         </div>
-         <!-- AI Bot 助手链接 -->
-         <div class="bot-container">
-             <a href="https://yuanqi.tencent.com/agent/uEYHXBNGg4QV" target="_blank" class="ai-bot-link">
-                 <span class="ai-bot-icon">🧠</span> <span class="ai-bot-text">自我评估智能体 - 单元2</span>
-                 <span class="external-link-icon">↗</span>
-             </a>
-             <a href="https://ltl123.github.io/algebraic-manipulation-2/" target="_blank" class="ai-bot-link">
-                 <span class="ai-bot-icon">🧠</span> <span class="ai-bot-text">Algebraic Game </span>
-                 <span class="external-link-icon">↗</span>
-             </a>
-             <a href="https://ltl123.github.io/g7-algebraic-Manipulation-2/" target="_blank" class="ai-bot-link">
-                 <span class="ai-bot-icon">🧠</span> <span class="ai-bot-text">合并同类项 Combine the like terms </span>
-                 <span class="external-link-icon">↗</span>
-             </a>
-             <a href="https://www.desmos.com/calculator?lang=zh-CN" target="_blank" class="ai-bot-link">
-                 <span class="ai-bot-icon">🧠</span> <span class="ai-bot-text"> Desmos Website </span>
-                 <span class="external-link-icon">↗</span>
-             </a>
-             <a href="https://yuanqi.tencent.com/agent/jmG9kyXMAD7Z" target="_blank" class="ai-bot-link">
-                 <span class="ai-bot-icon">🧠</span>
-                 <span class="ai-bot-text"> Researh Report Helper - Linear Equations </span>
-                 <span class="external-link-icon">↗</span>
-             </a>
-                <a href="https://www.khanacademy.org/join/M6YZHFGC" target="_blank" class="ai-bot-link">
-                 <span class="ai-bot-icon">🧠</span>
-                 <span class="ai-bot-text"> Khan Academy - Practice </span>
-                 <span class="external-link-icon">↗</span>
-             </a>
-                  <a href="https://gcnczj2m6fzv.feishu.cn/share/base/form/shrcn7HxFrkIV7XU4bCLJpZRbKf" target="_blank" class="ai-bot-link">
-                 <span class="ai-bot-icon">🧠</span>
-                 <span class="ai-bot-text"> Deadline Oct 17 - Homework Upload </span>
-                 <span class="external-link-icon">↗</span>
-             </a>
+        <!-- AI Bot 助手链接 -->
+        <div class="bot-container" aria-label="AI 学习助手链接区域">
+            <a href="https://yuanqi.tencent.com/agent/uEYHXBNGg4QV" target="_blank" rel="noopener noreferrer" class="ai-bot-link" title="自我评估智能体（单元2）" aria-label="打开自我评估智能体（单元2）">
+                <span class="ai-bot-icon" aria-hidden="true">🧠</span>
+                <span class="ai-bot-text">自我评估智能体 · 单元2</span>
+                <span class="external-link-icon" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://ltl123.github.io/algebraic-manipulation-2/" target="_blank" rel="noopener noreferrer" class="ai-bot-link" title="Algebraic Game" aria-label="打开 Algebraic Game">
+                <span class="ai-bot-icon" aria-hidden="true">🧠</span>
+                <span class="ai-bot-text">Algebraic Game</span>
+                <span class="external-link-icon" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://ltl123.github.io/g7-algebraic-Manipulation-2/" target="_blank" rel="noopener noreferrer" class="ai-bot-link" title="合并同类项（Combine the like terms）" aria-label="打开 合并同类项 Combine the like terms">
+                <span class="ai-bot-icon" aria-hidden="true">🧠</span>
+                <span class="ai-bot-text">合并同类项 · Combine the like terms</span>
+                <span class="external-link-icon" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://www.desmos.com/calculator?lang=zh-CN" target="_blank" rel="noopener noreferrer" class="ai-bot-link" title="Desmos 计算器" aria-label="打开 Desmos 计算器">
+                <span class="ai-bot-icon" aria-hidden="true">🧠</span>
+                <span class="ai-bot-text">Desmos 计算器</span>
+                <span class="external-link-icon" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://yuanqi.tencent.com/agent/jmG9kyXMAD7Z" target="_blank" rel="noopener noreferrer" class="ai-bot-link" title="研究报告助手（线性方程）" aria-label="打开 研究报告助手（线性方程）">
+                <span class="ai-bot-icon" aria-hidden="true">🧠</span>
+                <span class="ai-bot-text">研究报告助手 · Linear Equations</span>
+                <span class="external-link-icon" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://www.khanacademy.org/join/M6YZHFGC" target="_blank" rel="noopener noreferrer" class="ai-bot-link" title="Khan Academy 练习" aria-label="打开 Khan Academy 练习">
+                <span class="ai-bot-icon" aria-hidden="true">🧠</span>
+                <span class="ai-bot-text">Khan Academy · Practice</span>
+                <span class="external-link-icon" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://gcnczj2m6fzv.feishu.cn/share/base/form/shrcn7HxFrkIV7XU4bCLJpZRbKf" target="_blank" rel="noopener noreferrer" class="ai-bot-link" title="提交作业（Oct 18）" aria-label="打开提交作业（Oct 18）表单">
+                <span class="ai-bot-icon" aria-hidden="true">🧠</span>
+                <span class="ai-bot-text">提交作业 · Oct 18</span>
+                <span class="external-link-icon" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://drive.weixin.qq.com/s?k=AIkA9Qf4AHY37mP60r" target="_blank" rel="noopener noreferrer" class="ai-bot-link" title="Unit 2 Exercise" aria-label="打开 Unit 2 Exercise">
+                <span class="ai-bot-icon" aria-hidden="true">📄</span>
+                <span class="ai-bot-text">Unit 2 Exercise</span>
+                <span class="external-link-icon" aria-hidden="true">↗</span>
+            </a>
         </div>
 
         <!-- 学生交流分享区域 -->
@@ -333,6 +356,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.15.2/dist/av-min.js"></script>
     <script src="https://lib.youware.com/youware-lib-consumer.1752562065.js" id="yourware-lib"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      window.SUPABASE_URL = 'https://vmjwgzrpkwbcpegduojv.supabase.co';
+      window.SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtandnenJwa3diY3BlZ2R1b2p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0MjI1NDAsImV4cCI6MjA3NTk5ODU0MH0.hs0vrrYs6fAAU87ZPluHqRzJgq_5-r7RU4QwX-mO-jM';
+      window.supabaseClient = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+    </script>
     <script src="script.js" defer></script>
 </body>
 </html>

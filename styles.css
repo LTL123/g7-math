@@ -1753,8 +1753,159 @@ main::before {
         display: none;
     }
     
-    .nav-link::after {
-        content: attr(data-unit-short);
-        font-size: 0.75rem;
+.nav-link::after {
+    content: attr(data-unit-short);
+    font-size: 0.75rem;
+}
+
+/*** 教师私密留言区样式 ***/
+.teacher-private-section:not(.student-sharing-section) {
+    background: #f7f8fc;
+    border: 1px solid #e5e7f2;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 14px;
+}
+
+.teacher-private-section .sharing-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.teacher-private-section .sharing-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.teacher-private-section .sharing-title {
+    margin: 0;
+    font-size: 1rem;
+    color: #1f2937;
+}
+
+.teacher-private-section .privacy-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eef2ff;
+    color: #4f46e5;
+    border: 1px solid #e0e7ff;
+    border-radius: 9999px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.teacher-private-section .collapse-btn {
+    background: #ffffff;
+    border: 1px solid #e5e7f2;
+    color: #374151;
+    padding: 4px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.teacher-private-section .collapse-btn:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+.teacher-private {
+    margin-top: 10px;
+}
+
+.teacher-private .teacher-private-controls label {
+    color: #4b5563;
+}
+.teacher-private .teacher-private-controls select {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 6px 8px;
+    background: #fff;
+    color: #111827;
+}
+.teacher-private .teacher-private-controls select:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+.teacher-private .sharing-form textarea {
+    width: 100%;
+    min-height: 84px;
+    resize: vertical;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 10px 12px;
+    background: #ffffff;
+    color: #111827;
+}
+.teacher-private .sharing-form textarea:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+.teacher-private .sharing-actions {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+}
+.teacher-private .submit-teacher-comment {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.teacher-private .submit-teacher-comment:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+.teacher-private .shared-content .shared-title {
+    margin: 12px 0 8px;
+    font-size: 0.95rem;
+    color: #374151;
+}
+
+.teacher-comments-list .shared-message {
+    background: #ffffff;
+    border: 1px solid #e5e7f2;
+    border-radius: 10px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+}
+.teacher-comments-list .message-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+.teacher-comments-list .message-author {
+    font-weight: 600;
+    color: #1f2937;
+}
+.teacher-comments-list .message-time {
+    color: #6b7280;
+    font-size: 12px;
+}
+.teacher-comments-list .message-content {
+    color: #374151;
+    line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+    .teacher-private-section {
+        padding: 10px;
     }
+    .teacher-private .sharing-actions {
+        flex-direction: column;
+    }
+    .teacher-private .submit-teacher-comment {
+        width: 100%;
+    }
+}
 }
