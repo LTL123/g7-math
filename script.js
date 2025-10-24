@@ -2013,7 +2013,7 @@ function getValidUsersMap() {
     'Terrence': '20120419',
     'Steven': '20130521',
     'Austin': '20130304',
-    'TJ': '20130117',
+    'TJ': '20130128',
     'Chris': '20121225',
     'Jason': '20121126',
     'Abby': '20120601'
